@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         inputEmail = findViewById( R.id.inputEmail );
         inputPassword = findViewById( R.id.inputPassword );
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnSignUp);
 
         btnGoogle = findViewById(R.id.btnGoogle);
         btnGithub = findViewById( R.id.btnGithub );

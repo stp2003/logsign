@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GithubAuthProvider;
 import com.google.firebase.auth.OAuthProvider;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class Github_Activity extends AppCompatActivity {
 
 
         inputEmail = findViewById( R.id.inputEmail );
-        btnLogin = findViewById( R.id.btnLogin );
+        btnLogin = findViewById( R.id.btnSignUp);
 
         mAuth = FirebaseAuth.getInstance();
 

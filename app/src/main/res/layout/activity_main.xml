@@ -118,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/inputConfirmPassword" />
 
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnSignUp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -142,10 +142,10 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
 
-                app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+                app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
                 app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="@+id/btnLogin"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+                app:layout_constraintStart_toStartOf="@+id/btnSignUp"
+                app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -169,7 +169,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+                app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textView4" />
 
@@ -181,7 +181,7 @@
                 android:background="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/textView4"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/btnLogin"
+                app:layout_constraintStart_toStartOf="@+id/btnSignUp"
                 tools:layout_editor_absoluteY="526dp" />
 
             <ImageView

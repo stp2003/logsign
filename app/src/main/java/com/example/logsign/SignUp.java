@@ -1,29 +1,41 @@
 package com.example.logsign;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class SignUp extends AppCompatActivity {
 
     TextView alreadyHaveAccount;
     EditText inputEmail , inputPassword , inputConfirmPassword;
-    Button btnRegister;
+    Button btnRegister , changeProfile;
+
+    ImageView profileImage;
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -31,6 +43,8 @@ public class SignUp extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+
+    StorageReference storageReference;
 
 
     @Override
@@ -45,13 +59,19 @@ public class SignUp extends AppCompatActivity {
         inputEmail = findViewById( R.id.inputEmail );
         inputPassword = findViewById( R.id.inputPassword );
         inputConfirmPassword = findViewById( R.id.inputConfirmPassword );
-        btnRegister = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnSignUp);
+
+        profileImage = findViewById( R.id.profileImage );
+        changeProfile = findViewById( R.id.changeProfile );
+
 
 
         progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
 
         alreadyHaveAccount.setOnClickListener( new View.OnClickListener() {
@@ -69,7 +89,51 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        changeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent( Intent.ACTION_PICK , MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
+                startActivityForResult( openGallery , 1000);
+            }
+        });
+
+
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( requestCode == 1000)  {
+            if( resultCode == Activity.RESULT_OK)  {
+                assert data != null;
+                Uri imageUri = data.getData();
+                profileImage.setImageURI( imageUri );
+
+                uploadImageToFirebase( imageUri );
+
+            }
+        }
+    }
+
+
+    private void uploadImageToFirebase( Uri imageUri ) {
+        StorageReference fileRef = storageReference.child("photo.jpg");
+        fileRef.putFile( imageUri ).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(SignUp.this, "Image Upload", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(SignUp.this, "", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
 
     private void PerformAuth()  {
         String email = inputEmail.getText().toString();
