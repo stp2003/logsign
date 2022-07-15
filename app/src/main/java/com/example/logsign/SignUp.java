@@ -28,10 +28,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class SignUp extends AppCompatActivity {
 
-    TextView alreadyHaveAccount;
+    TextView alreadyHaveAccount , otpVerification;
     EditText inputEmail , inputPassword , inputConfirmPassword;
     Button btnRegister , changeProfile;
 
@@ -64,6 +65,7 @@ public class SignUp extends AppCompatActivity {
         profileImage = findViewById( R.id.profileImage );
         changeProfile = findViewById( R.id.changeProfile );
 
+        otpVerification = findViewById( R.id.otpVerification );
 
 
         progressDialog = new ProgressDialog(this);
@@ -72,6 +74,23 @@ public class SignUp extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference profileRef = storageReference.child( "users/" + mAuth.getCurrentUser().getUid() + "profile.jpg" );
+
+
+        otpVerification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( SignUp.this , OtpSendActivity.class ));
+            }
+        });
+
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                 Picasso.get().load( uri ).into( profileImage );
+            }
+        });
 
 
         alreadyHaveAccount.setOnClickListener( new View.OnClickListener() {
@@ -88,6 +107,7 @@ public class SignUp extends AppCompatActivity {
                 PerformAuth();
             }
         });
+
 
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +128,7 @@ public class SignUp extends AppCompatActivity {
             if( resultCode == Activity.RESULT_OK)  {
                 assert data != null;
                 Uri imageUri = data.getData();
-                profileImage.setImageURI( imageUri );
+//                profileImage.setImageURI( imageUri );
 
                 uploadImageToFirebase( imageUri );
 
@@ -118,12 +138,19 @@ public class SignUp extends AppCompatActivity {
 
 
     private void uploadImageToFirebase( Uri imageUri ) {
-        StorageReference fileRef = storageReference.child("photo.jpg");
+        final StorageReference fileRef = storageReference.child( "users/" + mAuth.getCurrentUser().getUid() + "profile.jpg" );
         fileRef.putFile( imageUri ).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(SignUp.this, "Image Upload", Toast.LENGTH_SHORT).show();
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load( uri ).into( profileImage );
+                    }
+                });
             }
+
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

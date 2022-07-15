@@ -26,6 +26,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures  {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -42,6 +46,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
 
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
 }
 

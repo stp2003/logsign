@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/drawable/input_bg.xml" value="0.2345" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_forget_password.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_github.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_google_sign_in.xml" value="0.21422101449275363" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_home.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_otp_verification.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_send_otp.xml" value="0.152" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/app/src/main/res/layout/activity_sign_up.xml" value="0.22826086956521738" />
       </map>
     </option>

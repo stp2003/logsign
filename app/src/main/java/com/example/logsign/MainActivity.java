@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView createNewAccount;
+    TextView createNewAccount , forgotPassword;
 
     EditText inputEmail , inputPassword;
     Button btnLogin;
@@ -60,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        forgotPassword = ( TextView) findViewById( R.id.forgotPassword );
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( MainActivity.this , Forget_Password.class ));
+            }
+        });
+
 
         createNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +78,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performLogin();
             }
         });
+
 
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void performLogin() {
 
