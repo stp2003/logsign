@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.logsign.databinding.ActivityOtpVerificationBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,16 +19,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.jetbrains.annotations.NotNull;
+
 public class OTP_Verification extends AppCompatActivity {
 
-    private OTP_Verification binding;
+    private ActivityOtpVerificationBinding binding;
     private String verificationId;
     Button btnVerify;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = OTP_Verification.inflate(getLayoutInflater());
+        binding = ActivityOtpVerificationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         editTextInput();
@@ -36,7 +40,9 @@ public class OTP_Verification extends AppCompatActivity {
                 "+91-%s", getIntent().getStringExtra("phone")
         ));
 
+
         verificationId = getIntent().getStringExtra("verificationId");
+
 
         binding.tvResendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +51,9 @@ public class OTP_Verification extends AppCompatActivity {
             }
         });
 
+
         btnVerify = findViewById( R.id.btnVerify );
+
 
         binding.btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +67,9 @@ public class OTP_Verification extends AppCompatActivity {
                         binding.etC5.getText().toString().trim().isEmpty() ||
                         binding.etC6.getText().toString().trim().isEmpty()) {
                     Toast.makeText( OTP_Verification.this, "OTP is not Valid!", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+
+                else {
                     if (verificationId != null) {
                         String code = binding.etC1.getText().toString().trim() +
                                 binding.etC2.getText().toString().trim() +
@@ -79,10 +89,11 @@ public class OTP_Verification extends AppCompatActivity {
                                             binding.progressBarVerify.setVisibility(View.VISIBLE);
                                             binding.btnVerify.setVisibility(View.INVISIBLE);
                                             Toast.makeText( OTP_Verification.this, "Welcome...", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(OTP_Verification.this, SignUp.class);
+                                            Intent intent = new Intent(OTP_Verification.this , SignUp.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
-                                        } else {
+                                        }
+                                        else {
                                             binding.progressBarVerify.setVisibility(View.GONE);
                                             binding.btnVerify.setVisibility(View.VISIBLE);
                                             Toast.makeText( OTP_Verification.this, "OTP is not Valid!", Toast.LENGTH_SHORT).show();
@@ -112,6 +123,8 @@ public class OTP_Verification extends AppCompatActivity {
 
             }
         });
+
+
         binding.etC2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -128,6 +141,8 @@ public class OTP_Verification extends AppCompatActivity {
 
             }
         });
+
+
         binding.etC3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -144,6 +159,8 @@ public class OTP_Verification extends AppCompatActivity {
 
             }
         });
+
+
         binding.etC4.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,6 +177,8 @@ public class OTP_Verification extends AppCompatActivity {
 
             }
         });
+
+
         binding.etC5.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
